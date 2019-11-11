@@ -1,0 +1,61 @@
+.wrap{
+    display: flex;
+
+}
+.wrap p{
+    font-weight: bold;
+    margin: 0 15px 0 15px ;
+}
+.slider{
+    width: 200px;
+    outline: none;
+    box-shadow: none;
+    border:none;
+
+}
+
+.noUi-target {
+    border-radius: 50px;
+    height: 20px;
+}
+.noUi-touch-area::before{
+    height: 0px;
+
+
+}
+.noUi-handle{
+    box-shadow: none;
+    background: red;
+    border:none;
+    width: 20px;
+}
+
+.noUi-handle-upper{
+    border-radius: 50%;
+
+}
+.noUi-handle-lower{
+    border-radius: 50%;
+}
+.noUi-active{}
+
+/*.noUi-handle-upper, .noUi-handle {*/
+/*    width: 10px;*/
+/*    height: 10px;*/
+/*    !*background: red;*!*/
+/*    border-radius: 50%;*/
+/*    border: none;*/
+/*}*/
+
+
+
+.noUi-target{}
+.noUi-ltr{}
+.noUi-horizontal{
+
+}
+
+.noUi-touch-area{
+
+     border-radius: 50%;
+ }
