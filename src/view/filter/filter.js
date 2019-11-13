@@ -3,18 +3,20 @@ import React, {Component} from 'react';
 import "./filter.css"
 import Slider from "../slider/slider";
 import Color from "../color/color";
+import Sizes from "../sizes/sizes";
 
 class Filter extends Component {
     state = {
+
         arr: [],
-        sizeS: [],
-        min: 0,
-        max: 0,
+
     };
 
+
     render() {
-        const {data, dataRender, clickCategories, clickColor} = this.props;
-const{sizeS}=this.state
+        const {data, dataRender, dataRenderSizes, clickCategories, clickColor,clickSizes, dataRenderColor} = this.props;
+// const{min,max}=this.state
+
 
         let filteredArrCat = data.reduce((acc, elem) => {
                 if (acc.map[elem.categories]) // если данный город уже был
@@ -30,7 +32,7 @@ const{sizeS}=this.state
             }).elems; // получаем конечный массив
 
 
-        let filteredArrColor = dataRender.reduce((acc, elem) => {
+        let filteredArrColor = dataRenderColor.reduce((acc, elem) => {
                 if (acc.map[elem.color]) // если данный город уже был
                     return acc; // ничего не делаем, возвращаем уже собранное
 
@@ -42,20 +44,6 @@ const{sizeS}=this.state
                 map: {}, // здесь будут отмечаться обработанные города
                 elems: [] // здесь конечный массив уникальных городов
             }).elems; // получаем конечный массив
-
-
-        dataRender.map((el) => {
-
-            let test = el.size.split(",");
-            this.state.arr.push(...test);
-
-        });
-        let min = Math.min(...this.state.arr)
-        let max = Math.max(...this.state.arr)
-        let sizes = [min, max];
-        this.state.sizeS = sizes;
-
-        // console.log(this.state.sizeS)
 
 
         return (
@@ -73,8 +61,8 @@ const{sizeS}=this.state
                 <div className={"separator"}></div>
 
                 <div>
-                    {console.log(this.state.sizeS)}
-                    <Slider sizes={this.state.sizeS}/>
+                    <Sizes dataRender={dataRender} clickSizes={clickSizes} dataRenderSizes={dataRenderSizes}/>
+                    {/*<Slider dataRender={dataRender}  />*/}
                 </div>
                 <div className={"separator"}></div>
                 <div className={"color"}>

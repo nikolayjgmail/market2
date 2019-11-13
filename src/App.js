@@ -20,6 +20,8 @@ class App extends Component {
     state = {
         data: [],
         activeFilter: false,
+        dataRenderColor:[],
+        dataRenderSizes:[],
         dataRender: [],
         dataRenderGender: [],
         activeGender: '',
@@ -35,8 +37,11 @@ class App extends Component {
             method: 'GET',
         })
             .then((res) => res.json())
-            .then((res) => this.setState({data: res, dataRender: res}));
+            .then((res) => this.setState({data: res, dataRender: res,dataRenderColor:res,dataRenderSizes:res}));
         this.setState({activeFilter: true});
+
+
+
 
 
         // this.setState({activeGender: val.textContent});
@@ -65,24 +70,41 @@ class App extends Component {
 
     clickCategories = (e) => {
         let cat = e.target.getAttribute("data-id");
-
         let arr = this.state.data.filter((el) => el.categories === cat.toLowerCase());
-
         this.setState({dataRender: arr});
-
+        this.setState({dataRenderColor: arr});
+        this.setState({dataRenderSizes:arr})
     };
 
     clickColor =(e)=>{
-        let val = e.target.getAttribute('data-id')
-        let arr = this.state.dataRender.filter((el) => el.color === val.toLowerCase());
-        this.setState({dataRender:arr})
+        let val = e.target.getAttribute('data-id');
+        let arr = this.state.dataRenderColor.filter((el) => el.color === val.toLowerCase());
+        this.setState({dataRender:arr});
+        this.setState({dataRenderSizes:arr})
+    };
+
+    clickSizes=(e)=> {
+        let val = e.target.textContent;
+
+        let arr = this.state.dataRenderSizes.filter((el) => {
+            return el.size.split(",").some((elem)=> elem===val)
+        });
+        this.setState({dataRender:arr});
+        this.setState({dataRenderColor:arr});
+
+        console.log(arr)
+    };
+
+    clickGoods=(e)=>{
+
+console.log(e.target.getAttribute("data-id"))
     };
 
     render() {
 
 
-        const {clickGender, clickCategories, clickColor} = this;
-        const {data, activeFilter, activeGender, dataRender, dataRenderGender} = this.state;
+        const {clickGender, clickCategories, clickColor, clickSizes,clickGoods} = this;
+        const {data, dataRender, dataRenderSizes,dataRenderColor,} = this.state;
 
 
         return (
@@ -99,8 +121,7 @@ class App extends Component {
                     <section className={"filters"}>
                         {
 
-                            // activeGender && <Filter type={dataRenderGender} clickCategories={clickCategories}/>
-                            activeFilter && <Filter data={data} dataRender={dataRender} clickCategories={clickCategories} clickColor={clickColor}/>
+                            dataRender.length!=0 && <Filter data={data} dataRender={dataRender}  dataRenderColor={dataRenderColor} dataRenderSizes={dataRenderSizes} clickSizes={clickSizes} clickCategories={clickCategories} clickColor={clickColor}/>
 
                         }
 
@@ -111,7 +132,8 @@ class App extends Component {
                         {
 
                             dataRender.map((el, key) => {
-                                return <Good key={key} pictures={el.pictures} price={el.price}/>
+
+                                return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} clickGoods={clickGoods}/>
                             })
 
                         }

@@ -6,7 +6,7 @@ class Color extends Component {
         return (
 
             <div>
-                <a onClick={clickColor} href="#"><div data-id={dataId} className={"back"} style={{"background" :color}}></div></a>
+                <a data-id={dataId} onClick={clickColor} href="#"><div data-id={dataId} className={"back"} style={{"background" :color}}></div></a>
             </div>
         );
     }

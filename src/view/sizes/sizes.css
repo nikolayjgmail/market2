@@ -1,0 +1,14 @@
+.sizes{
+    /*width: 200px;*/
+    /*height: 30px;*/
+    /*background: lightblue;*/
+    display: flex;
+}
+.size{
+margin-left: 5px;
+}
+
+.size a{
+    font-weight: bold;
+    color: black;
+}

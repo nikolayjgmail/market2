@@ -59,3 +59,10 @@
 
      border-radius: 50%;
  }
+
+.noUi-tooltip{
+    /*display: none;*/
+    position: absolute;
+    left: 0;
+    background: aqua;
+}

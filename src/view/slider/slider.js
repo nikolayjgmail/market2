@@ -4,39 +4,87 @@ import "nouislider/distribute/nouislider.css";
 import "./slider.css"
 class Slider extends Component {
 state={
-    sizesRender:[34,46]
+    arr:[],
+    minRender:0,
+    maxRender:0,
+
+
 };
 
 
+//     static getDerivedStateFromProps(nextProps, prevState){
+//     if(nextProps.Min!==prevState.minT){
+//         return{minT: nextProps.Min}
+//     }
+//     else return null;
+// };
 
+udate(){
+    this.state.arr=[];
+    this.props.dataRender.map((el) => {
 
+        let test = el.size.split(",");
+        this.state.arr.push(...test);
+    });
 
-    geT=(e)=>{
+    let min = Math.min(...this.state.arr);
+    let max = Math.max(...this.state.arr);
+    // this.setState({minRender: min});
+    // this.setState({maxRender: max});
+    console.log(min,max)
 
-        let low = document.querySelector('.noUi-handle-lower').getAttribute("aria-valuenow");
-        let hi = document.querySelector('.noUi-handle-upper').getAttribute("aria-valuenow");
-        let sliderData = [Math.round(low),Math.round(hi)];
-        this.setState({sizesRender: sliderData})
+}
 
-};
 
     render() {
-const{sizesRender}=this.state;
-const{sizes}=this.props;
+const{minRender, maxRender,}=this.state;
+const{dataRender}=this.props;
 
-console.log(sizes)
-        // sizeS[0]!=="infinity" && this.setState({sizesRender: this.props.sizeS})
+
+
+// let min = minT;
+// let max= maxT;
+
+
+
+
+
+
+
+        const get=(e)=>{
+
+            let low = document.querySelector('.noUi-handle-lower').getAttribute("aria-valuenow");
+            let hi = document.querySelector('.noUi-handle-upper').getAttribute("aria-valuenow");
+
+           let min = Math.round(low);
+           let max = Math.round(hi);
+
+            console.log(min,max)
+            this.setState({minRender: min})
+            this.setState({maxRender: max})
+        };
+
+
+// console.log(  document.querySelector('.noUi-tooltip') &&  document.querySelector('.noUi-tooltip').textContent)
+
+
+
+
 
 
         return (
 
             <div className={"wrap"} >
+
+
                 <p>SIZE:</p>
-                <p>{sizesRender[0]}</p>
-            <div onClick={this.geT} className={"slider"}>
-                <Nouislider  range={{ min: 34, max: 46 }} start={sizes } step={1} />
+                <p>{minRender}</p>
+                {/*<p>{Math.round(document.querySelector('.noUi-tooltip') &&  document.querySelectorAll('.noUi-tooltip')[0].textContent)}</p>*/}
+            <div onClick={get} className={"slider"}>
+                <Nouislider  range={{ min: 0 , max: 1}} start={[0, 1] } step={1} tooltips/>
             </div>
-                <p>{sizesRender[1]}</p>
+                <p>{maxRender}</p>
+                {/*<p>{Math.round(document.querySelector('.noUi-tooltip') &&  document.querySelectorAll('.noUi-tooltip')[1].textContent)}</p>*/}
             </div>
 
         );
