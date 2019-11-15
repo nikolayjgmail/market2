@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 import './App.css';
 import Header from "./view/header/header";
 import Filter from "./view/filter/filter";
 import Good from "./view/good/good";
+import GetGender from "./view/getGender/getGender";
+
 
 class App extends Component {
 
@@ -108,6 +111,10 @@ console.log(e.target.getAttribute("data-id"))
 
 
         return (
+            <Router>
+
+
+
 
             <div>
 
@@ -128,15 +135,36 @@ console.log(e.target.getAttribute("data-id"))
 
                     </section>
 
-                    <section className={"goods"}>
-                        {
 
-                            dataRender.map((el, key) => {
 
-                                return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} clickGoods={clickGoods}/>
-                            })
 
-                        }
+                    <section>
+
+
+                        <Switch>
+                            {/*<Route path="/men" render={(props) => <GetGender text="men" {...props} />} />*/}
+                            {/*<Route path="/women" render={(props) => <GetGender text="women" {...props} />} />*/}
+                            {/*<Route path="/kids" render={(props) => <GetGender text="kids" {...props} />} />*/}
+
+
+                            <Route path="/:gender"  exact component={GetGender} />
+
+
+                            {/*<Route path="/men"  component={GetGender} />*/}
+                            {/*<Route path={'/:id'} exact component={GetGender}/>*/}
+                            {/*<Route path={'/women'} exact component={GetGender}/>*/}
+                            {/*<Route path={'/kids'} exact component={GetGender}/>*/}
+                        </Switch>
+                        {/*{*/}
+
+                        {/*    dataRender.map((el, key) => {*/}
+
+                        {/*        return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} clickGoods={clickGoods}/>*/}
+                        {/*    })*/}
+
+                        {/*}*/}
+
+
 
 
                     </section>
@@ -147,6 +175,7 @@ console.log(e.target.getAttribute("data-id"))
 
                 </div>
             </div>
+            </Router>
         );
     }
 }
