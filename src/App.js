@@ -1,11 +1,18 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route,NavLink} from 'react-router-dom';
 
 import './App.css';
 import Header from "./view/header/header";
 import Filter from "./view/filter/filter";
 import Good from "./view/good/good";
 import GetGender from "./view/getGender/getGender";
+import GetGenderMen from "./view/testComponents/GetGenderMen";
+import GetGenderWomen from "./view/testComponents/GetGenderWomen";
+import GetGenderKids from "./view/testComponents/GetGenderKids";
+import GoodsInfo from "./view/goodsInfo/goodsInfo";
+import Shop from "./view/testRout/testRout";
+import BasketC from "./view/basketComonent/basketC";
+
 
 
 class App extends Component {
@@ -29,8 +36,23 @@ class App extends Component {
         dataRenderGender: [],
         activeGender: '',
         activeCategories: '',
+        activeGoodsInfo: false,
+        // activeBasket: false,
+        basket:[],
     };
 
+    addBasket=(order)=>{
+
+        let data=this.state.basket;
+        data.push(order);
+
+        this.setState({basket:data})
+        console.log(this.state.basket)
+           };
+
+// clickBasket=()=>{
+// this.setState({activeBasket: true})
+// };
 
     clickGender = (e) => {
 
@@ -100,17 +122,29 @@ class App extends Component {
 
     clickGoods=(e)=>{
 
-console.log(e.target.getAttribute("data-id"))
+// console.log(e.target.getAttribute("data-id"))
+
+        // this.setState({activeGoodsInfo:true})
+
     };
+
+
 
     render() {
 
 
-        const {clickGender, clickCategories, clickColor, clickSizes,clickGoods} = this;
-        const {data, dataRender, dataRenderSizes,dataRenderColor,} = this.state;
+
+
+        const {clickGender, clickCategories, clickColor, clickSizes,clickGoods,addBasket,clickBasket} = this;
+        const {data, dataRender, dataRenderSizes,dataRenderColor,activeGoodsInfo,basket,activeGender} = this.state;
 
 
         return (
+
+
+
+
+
             <Router>
 
 
@@ -121,7 +155,7 @@ console.log(e.target.getAttribute("data-id"))
                 <div className={"mainWrap"}>
 
                     <header>
-                        <Header clickGender={clickGender}/>
+                        <Header data={basket.length} clickGender={clickGender} clickBasket={clickBasket}/>
                     </header>
 
 
@@ -142,16 +176,37 @@ console.log(e.target.getAttribute("data-id"))
 
 
                         <Switch>
-                            {/*<Route path="/men" render={(props) => <GetGender text="men" {...props} />} />*/}
-                            {/*<Route path="/women" render={(props) => <GetGender text="women" {...props} />} />*/}
-                            {/*<Route path="/kids" render={(props) => <GetGender text="kids" {...props} />} />*/}
+                            {/*<Route path="/men" exect render={(props) => <GetGenderMen clickGoods={clickGoods} {...props} />} />*/}
+                            {/*<Route path="/women" exect render={(props) => <GetGenderWomen clickGoods={clickGoods} {...props} />} />*/}
+                            {/*<Route path="/kids" exect render={(props) => <GetGenderKids clickGoods={clickGoods} {...props} />} />*/}
 
 
-                            <Route path="/:gender"  exact component={GetGender} />
+                            {/*<Route onClick={clickGender} path="/:gender"  exact render={(props) =><GetGender data={data}   {...props} />} />*/}
+                            {/*<Route path="/:gender"  exact render={(props) =><TestGetWrap data={data}  test={''}  {...props} />} />*/}
+
+
+                            {/*<Route path="/"  exact component={App} />*/}
+
+                            {/*<Route path="/men"  exact component={GetGenderMen} />*/}
+                            {/*<Route path="/women"  exact component={GetGenderWomen} />*/}
+                            {/*<Route path="/kids"  exact component={GetGenderKids} />*/}
+
+                            <Route path="/basket"  exact  render={(props) =><BasketC basket={basket}   {...props} />} />
+
+
+                            {/*<Route path="/:gender"  exact component={Shop} />*/}
+                            {/*<Route path={'/:gender/:id'} exect render={(props) =><GoodsInfo addBasket={addBasket}  {...props} />} />*/}
+                            {/*<Route path={'/men/:id'}  component={GoodsInfo}/>*/}
+
+
+                            <Route path={'/:gender'} exact component={GetGender}/>
+
+                            <Route path={'/:gender/:id'} exect render={(props) =><GoodsInfo addBasket={addBasket}  {...props} />} />
+
+
 
 
                             {/*<Route path="/men"  component={GetGender} />*/}
-                            {/*<Route path={'/:id'} exact component={GetGender}/>*/}
                             {/*<Route path={'/women'} exact component={GetGender}/>*/}
                             {/*<Route path={'/kids'} exact component={GetGender}/>*/}
                         </Switch>

@@ -4,49 +4,45 @@ import Good from "../good/good";
 class GetGender extends Component {
     state = {
         data: [],
-        prps:this.props.match.params.gender,
-
+        prps:'',
     };
 
 
+
 componentDidMount() {
+    this.setState({prps: this.props.match.params.gender})
     fetch(`http://localhost/components/getTest.php?column=gender&data=${this.state.prps}`, {
         method: 'GET',
     })
         .then((res) => res.json())
         .then((res) => this.setState({data: res}));
+
 }
 
 
 
+ shouldComponentUpdate(nextProps, nextState, nextContext) {
+
+     this.setState({prps:nextProps.match.params.gender})
+
+       return  this.state.prps!==nextProps.match.params.gender
 
 
 
-    // static getDerivedStateFromProps(nextProps, prevState){
-    //     if(nextProps.match.params.gender!==prevState.prps){
-    //
-    //         // return{prps: nextProps.match.params.gender}
-    //         //
-    //         console.log("weqeqweqw")
-    //     }
-    //     else return null;
-    // };
 
 
-// componentDidMount() {
-//     console.log("didmount!!!")
-// }
 
-// shouldComponentUpdate(nextProps, nextState, nextContext) {
-//     // console.log("should")
-//     fetch(`http://localhost/components/getTest.php?column=gender&data=${this.props.match.params.gender}`, {
-//                 method: 'GET',
-//             })
-//                 .then((res) => res.json())
-//                 .then((res) => this.setState({data: res}));
-//
-//
-// }
+ }
+
+
+
+         //         this.addBasket().then((res)=> {
+         //                 this.setState({
+         //                     id:nextProps,
+         //                     basket:res
+         //                 })
+         //             }
+ // }
 
 
 
@@ -55,15 +51,17 @@ componentDidMount() {
 
 
     render() {
-        console.log(this.state.data)
-        console.log(this.props.match.params.gender)
+        console.log("props:", this.props.match.params.gender);
+        console.log("state:", this.state.prps);
+
 
         const {data, prps} = this.state;
 
 
 
 
-       // console.log(this.props.match.params.gender)
+
+       // console.log(this.props.data)
 
         return (
             <div className={"goods"}>
@@ -71,6 +69,9 @@ componentDidMount() {
                     data.map((el, key)=> {
                         return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} />
                     })
+                    // this.props.data.map((el, key)=> {
+                    //     return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} gender={el.gender} />
+                    // })
 
 
                 }

@@ -4,7 +4,7 @@ class User extends Component {
     render() {
         return (
             <div>
-                <a href="#"><img src="http://localhost/image/user.png" alt=""/></a>
+               <img src="http://localhost/image/user.png" alt=""/>
             </div>
         );
     }

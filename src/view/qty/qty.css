@@ -1,0 +1,10 @@
+.qty{
+    display:flex;
+}
+.qty h1, .qty h3{
+    margin-left: 15px;
+}
+
+.qty h1{
+    cursor: pointer;
+}

@@ -3,24 +3,32 @@ import "./header.css"
 import Search from "./search";
 import User from "./user";
 import Basket from "./basket";
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 
 class Header extends Component {
     render() {
-        const {clickGender} = this.props;
+
+        const {clickGender, data,clickBasket} = this.props;
+
         return (
 
             <div className={"header"}>
+                <Link to={'/'}><img src="http://localhost/image/logo.png" alt=""/></Link>
 
-                <a href="#"><img src="http://localhost/image/logo.png" alt=""/></a>
 
                 <nav className={"menu"}>
                     <ul>
 
 
-                        <NavLink to={"men"}> <li >< p className={"li"} onClick={clickGender}>MEN</p></li> </NavLink>
-                        <NavLink to={"women"}> <li ><p className={"li"} onClick={clickGender}>WOMEN</p></li> </NavLink>
-                        <NavLink to={"kids"}> <li ><p  className={"li"} onClick={clickGender}>KIDS</p></li> </NavLink>
+                        <NavLink to={"/men/"}>
+                            <li>< p className={"li"} onClick={clickGender}>MEN</p></li>
+                        </NavLink>
+                        <NavLink to={"/women"}>
+                            <li><p className={"li"} onClick={clickGender}>WOMEN</p></li>
+                        </NavLink>
+                        <NavLink to={"/kids"}>
+                            <li><p className={"li"} onClick={clickGender}>KIDS</p></li>
+                        </NavLink>
 
                     </ul>
                 </nav>
@@ -29,10 +37,10 @@ class Header extends Component {
                     <Search/>
                 </div>
                 <div className={"basket"}>
-<Basket/>
+                    <Basket clickBasket={clickBasket} data={data}/>
                 </div>
                 <div className={"user"}>
-<User/>
+                    <User/>
                 </div>
 
 

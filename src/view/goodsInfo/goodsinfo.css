@@ -1,0 +1,164 @@
+.goodsInfoWrap{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.close{
+position: absolute;
+    top:10px;
+    right: 30px;
+   }
+
+.close img{
+    width: 30px;
+    height: 30px;
+}
+
+
+.close:hover{
+    transition: 1s;
+    transform-origin: center;
+    transform: rotate(360deg);
+
+}
+
+
+.goodsInfoMain{
+    width:80%;
+    height: 85vh;
+    display: flex;
+
+}
+
+.imgWrap{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.imgWrap img{
+    width: 100%;
+
+}
+
+.goodsInfoData{
+/*background: skyblue;*/
+    padding-left: 5%;
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /*align-items: center;*/
+}
+
+.goodsInfoDataHeader{
+
+    width: 80%;
+
+     display: flex;
+    justify-content: space-between;
+}
+
+/*.stars{*/
+/*background: darkseagreen;*/
+/*    width: 30%;*/
+/*    height: 40px;*/
+/*}*/
+
+
+
+.description{
+    width: 90%;
+}
+
+.footerWrap{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.goodsInfoColors{
+    display: flex;
+    align-items: center;
+}
+
+
+.goodsInfoColor{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: solid 2px black;
+    margin-left: 5px;
+}
+
+.goodsInfoColor:hover {
+cursor: pointer;
+}
+
+.goodsInfoSizes{
+    display: flex;
+    align-items: center;
+
+}
+
+.goodsInfoSizes h4{
+    margin-left: 5px;
+}
+
+.goodsInfoSizes h4:hover{
+    cursor: pointer;
+}
+
+.qty{
+    display: flex;
+    align-items: center;
+}
+
+.separator{
+    height: 20px;
+    border-left:solid 1px black
+
+}
+
+.buttonBasket{
+    width: 100px;
+    background: #e2e0de;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.buttonBasket:hover{
+      cursor: pointer;
+  }
+
+.buttonBasket h5{
+   color: #333333;
+    padding: 10px;
+}
+
+.activeColor{
+
+    box-shadow: 1px 5px 3px 0px rgba(0,0,0,0.75);
+
+   /* position: absolute;*/
+   /*content: '';*/
+   /* width: 30px;*/
+   /* height: 30px;*/
+   /* border-radius: 50%;*/
+   /* border: solid 1px red;*/
+}
+
+.activeSize{
+    box-shadow: 1px 5px 3px 0px rgba(0,0,0,0.75);
+}

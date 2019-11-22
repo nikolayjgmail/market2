@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import "./sizes.css"
+import {NavLink,Link} from 'react-router-dom';
 class Sizes extends Component {
     render() {
         const{dataRender,clickSizes}=this.props;
@@ -22,7 +23,7 @@ class Sizes extends Component {
                 {
                     filteredArrSizes.map((elem,key)=>{
 
-                        return <div  key={key} className={"size"}><a onClick={clickSizes} href="#">{elem}</a></div>
+                        return <div  key={key} className={"size"}><Link to={`?s=${elem}`} onClick={clickSizes}>{elem}</Link></div>
                     })
                 }
             </div>
