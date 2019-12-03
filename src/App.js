@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Switch, Route,NavLink} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, NavLink} from 'react-router-dom';
 
 import './App.css';
 import Header from "./view/header/header";
@@ -12,7 +12,11 @@ import GetGenderKids from "./view/testComponents/GetGenderKids";
 import GoodsInfo from "./view/goodsInfo/goodsInfo";
 import Shop from "./view/testRout/testRout";
 import BasketC from "./view/basketComonent/basketC";
+import Footer from "./view/footer/footer";
+import FirstScreen from "./view/firstScreen/firstScreen";
 
+import Content from "./view/content/content";
+import SearchComponent from "./view/searchComponent/searchComponent";
 
 
 class App extends Component {
@@ -28,208 +32,186 @@ class App extends Component {
 
 
     state = {
-        data: [],
+
+        dataSearch:[],
+
         activeFilter: false,
-        dataRenderColor:[],
-        dataRenderSizes:[],
+        dataRenderColor: [],
+        dataRenderSizes: [],
         dataRender: [],
         dataRenderGender: [],
         activeGender: '',
         activeCategories: '',
         activeGoodsInfo: false,
         // activeBasket: false,
-        basket:[],
+        basket: [],
     };
+
+    // delDataSearch=()=>{
+    //     if(this.state.dataSearch.length>0){
+    //         this.setState({dataSearch:[]})
+    //     }
+    //
+    // }
+componentDidMount() {
+    this.renewBasket()
+}
+
+renewBasket=()=>{
+    if (JSON.parse(localStorage.getItem("dataBasket"))){
+       this.setState({basket:JSON.parse(localStorage.getItem("dataBasket"))})
+   }
+}
 
     addBasket=(order)=>{
-
         let data=this.state.basket;
         data.push(order);
-
         this.setState({basket:data})
-        console.log(this.state.basket)
+        localStorage.setItem("dataBasket", JSON.stringify(data))
            };
 
-// clickBasket=()=>{
-// this.setState({activeBasket: true})
-// };
-
-    clickGender = (e) => {
-
-        const val = e.target;
-        const value = val.textContent.toLowerCase();
-        fetch(`http://localhost/components/getTest.php?column=gender&data=${value}`, {
-            method: 'GET',
-        })
-            .then((res) => res.json())
-            .then((res) => this.setState({data: res, dataRender: res,dataRenderColor:res,dataRenderSizes:res}));
-        this.setState({activeFilter: true});
 
 
+    search=(e)=>{
+
+        let dat=e.target.value;
+        if(dat.length!==0){
+           if(document.querySelector(".firstScreenWrap")){
+               document.querySelector(".firstScreenWrap").style.display="none"
+           }
+
+            fetch(`http://localhost/components/getSerch.php?data=${dat}`, {
+                method: 'GET',
+            })
+                .then((res) => res.json())
+                .then((res) => this.setState({dataSearch:res}));
+        }
+        else{
+            if(document.querySelector(".firstScreenWrap")){
+                document.querySelector(".firstScreenWrap").style.display="flex"
+                this.setState({dataSearch:[]})
+            }
+
+
+        }
 
 
 
-        // this.setState({activeGender: val.textContent});
-        // val.className = "active";
-        // this.setState({dataRender: this.state.data})
-        // this.setState({dataRenderGender: this.state.data})
+    }
 
-    };
-
-
-//     componentDidMount() {
-//         fetch('http://localhost/components/get.php')
-//             .then((res) => res.json())
-//             .then((res) => this.setState({data: res}))
-//     };
-//
-//
-//     clickGender = (e) => {
-//         const val = e.target;
-//         this.setState({activeGender: val.textContent});
-//         val.className = "active";
-//         let arr = this.state.data.filter((el) => el.gender === val.textContent.toLowerCase());
-//         this.setState({dataRender: arr})
-//         this.setState({dataRenderGender: arr})
-//     };
-
-    clickCategories = (e) => {
-        let cat = e.target.getAttribute("data-id");
-        let arr = this.state.data.filter((el) => el.categories === cat.toLowerCase());
-        this.setState({dataRender: arr});
-        this.setState({dataRenderColor: arr});
-        this.setState({dataRenderSizes:arr})
-    };
-
-    clickColor =(e)=>{
-        let val = e.target.getAttribute('data-id');
-        let arr = this.state.dataRenderColor.filter((el) => el.color === val.toLowerCase());
-        this.setState({dataRender:arr});
-        this.setState({dataRenderSizes:arr})
-    };
-
-    clickSizes=(e)=> {
-        let val = e.target.textContent;
-
-        let arr = this.state.dataRenderSizes.filter((el) => {
-            return el.size.split(",").some((elem)=> elem===val)
-        });
-        this.setState({dataRender:arr});
-        this.setState({dataRenderColor:arr});
-
-        console.log(arr)
-    };
-
-    clickGoods=(e)=>{
-
-// console.log(e.target.getAttribute("data-id"))
-
-        // this.setState({activeGoodsInfo:true})
-
-    };
 
 
 
     render() {
 
-
-
-
-        const {clickGender, clickCategories, clickColor, clickSizes,clickGoods,addBasket,clickBasket} = this;
-        const {data, dataRender, dataRenderSizes,dataRenderColor,activeGoodsInfo,basket,activeGender} = this.state;
+        const {renewBasket, delDataSearch,clickGender, clickCategories, clickColor, clickSizes, clickGoods, addBasket, search, clickBasket} = this;
+        const{ dataSearch, dataRender, dataRenderSizes, dataRenderColor, activeGoodsInfo, basket, activeGender} = this.state;
 
 
         return (
 
 
-
-
-
             <Router>
 
 
+                <div>
+
+                    <div className={"mainWrap"}>
+
+                        <header>
+                            <Header search={search} data={basket.length} clickGender={clickGender} clickBasket={clickBasket}/>
+                        </header>
 
 
-            <div>
+                        {/*<section className={"filters"}>*/}
+                        {/*    {*/}
 
-                <div className={"mainWrap"}>
+                        {/*        dataRender.length!=0 && <Filter data={data} dataRender={dataRender}  dataRenderColor={dataRenderColor} dataRenderSizes={dataRenderSizes} clickSizes={clickSizes} clickCategories={clickCategories} clickColor={clickColor}/>*/}
 
-                    <header>
-                        <Header data={basket.length} clickGender={clickGender} clickBasket={clickBasket}/>
-                    </header>
-
-
-                    <section className={"filters"}>
-                        {
-
-                            dataRender.length!=0 && <Filter data={data} dataRender={dataRender}  dataRenderColor={dataRenderColor} dataRenderSizes={dataRenderSizes} clickSizes={clickSizes} clickCategories={clickCategories} clickColor={clickColor}/>
-
-                        }
+                        {/*    }*/}
 
 
-                    </section>
+                        {/*</section>*/}
 
 
+                        <section className={'content'}>
+
+                            {
+                                // console.log(dataSearch)
+                            }
+
+                            {
+
+                                dataSearch.length!==0  &&  <SearchComponent dataSearch={dataSearch}/>
+
+                            }
+
+                            <Switch>
+
+                                <Route path={"/"} exact component={FirstScreen}/>
+                                <Route path={"/search"} exact component={FirstScreen}/>
+                                <Route path="/basket" exact
+                                       render={(props) => <BasketC basket={basket} renewBasket={renewBasket}   {...props} />}/>
+                                <Route path={'/b=:id'} exact
+                                       render={(props) => <GoodsInfo addBasket={addBasket}  {...props} />}/>
+                                <Route path="/:gender" exact
+                                       render={(props) => <GetGender delDataSearch={delDataSearch}
+                                                                     dataRenderColor={dataRenderColor}
+                                                                     dataRenderSizes={dataRenderSizes}
+                                                                     clickSizes={clickSizes}
+                                                                     clickCategories={clickCategories}
+                                                                     clickColor={clickColor} {...props} />}/>
+                                <Route path="/:gender/:val2" exact
+                                       render={(props) => <GetGender  dataRender={dataRender}
+                                                                     dataRenderColor={dataRenderColor}
+                                                                     dataRenderSizes={dataRenderSizes}
+                                                                     clickSizes={clickSizes}
+                                                                     clickCategories={clickCategories}
+                                                                     clickColor={clickColor} {...props} />}/>
+                                <Route path="/:gender/:val2/:val3" exact
+                                       render={(props) => <GetGender  dataRender={dataRender}
+                                                                     dataRenderColor={dataRenderColor}
+                                                                     dataRenderSizes={dataRenderSizes}
+                                                                     clickSizes={clickSizes}
+                                                                     clickCategories={clickCategories}
+                                                                     clickColor={clickColor} {...props} />}/>
+                                <Route path="/:gender/:val2/:val3/:val4" exact
+                                       render={(props) => <GetGender  dataRender={dataRender}
+                                                                     dataRenderColor={dataRenderColor}
+                                                                     dataRenderSizes={dataRenderSizes}
+                                                                     clickSizes={clickSizes}
+                                                                     clickCategories={clickCategories}
+                                                                     clickColor={clickColor} {...props} />}/>
 
 
-                    <section>
-
-
-                        <Switch>
-                            {/*<Route path="/men" exect render={(props) => <GetGenderMen clickGoods={clickGoods} {...props} />} />*/}
-                            {/*<Route path="/women" exect render={(props) => <GetGenderWomen clickGoods={clickGoods} {...props} />} />*/}
-                            {/*<Route path="/kids" exect render={(props) => <GetGenderKids clickGoods={clickGoods} {...props} />} />*/}
-
-
-                            {/*<Route onClick={clickGender} path="/:gender"  exact render={(props) =><GetGender data={data}   {...props} />} />*/}
-                            {/*<Route path="/:gender"  exact render={(props) =><TestGetWrap data={data}  test={''}  {...props} />} />*/}
-
-
-                            {/*<Route path="/"  exact component={App} />*/}
-
-                            {/*<Route path="/men"  exact component={GetGenderMen} />*/}
-                            {/*<Route path="/women"  exact component={GetGenderWomen} />*/}
-                            {/*<Route path="/kids"  exact component={GetGenderKids} />*/}
-
-                            <Route path="/basket"  exact  render={(props) =><BasketC basket={basket}   {...props} />} />
-
-
-                            {/*<Route path="/:gender"  exact component={Shop} />*/}
-                            {/*<Route path={'/:gender/:id'} exect render={(props) =><GoodsInfo addBasket={addBasket}  {...props} />} />*/}
-                            {/*<Route path={'/men/:id'}  component={GoodsInfo}/>*/}
-
-
-                            <Route path={'/:gender'} exact component={GetGender}/>
-
-                            <Route path={'/:gender/:id'} exect render={(props) =><GoodsInfo addBasket={addBasket}  {...props} />} />
-
-
-
-
-                            {/*<Route path="/men"  component={GetGender} />*/}
-                            {/*<Route path={'/women'} exact component={GetGender}/>*/}
-                            {/*<Route path={'/kids'} exact component={GetGender}/>*/}
-                        </Switch>
-                        {/*{*/}
-
-                        {/*    dataRender.map((el, key) => {*/}
-
-                        {/*        return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} clickGoods={clickGoods}/>*/}
-                        {/*    })*/}
-
-                        {/*}*/}
+                            </Switch>
 
 
 
 
-                    </section>
 
-                    <footer>
 
-                    </footer>
+                            {/*{*/}
 
+                            {/*    dataRender.map((el, key) => {*/}
+
+                            {/*        return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} clickGoods={clickGoods}/>*/}
+                            {/*    })*/}
+
+                            {/*}*/}
+
+
+                        </section>
+
+                        <footer>
+
+                            <Footer/>
+
+
+                        </footer>
+
+                    </div>
                 </div>
-            </div>
             </Router>
         );
     }

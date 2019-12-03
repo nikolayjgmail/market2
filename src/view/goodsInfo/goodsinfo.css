@@ -81,8 +81,9 @@ position: absolute;
     width: 90%;
 }
 
-.footerWrap{
+.footerWrapGoodsInfo{
     width: 90%;
+height: 5vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -125,11 +126,11 @@ cursor: pointer;
     align-items: center;
 }
 
-.separator{
-    height: 20px;
-    border-left:solid 1px black
+/*.separator{*/
+/*    height: 20px;*/
+/*    border-left:solid 1px black*/
 
-}
+/*}*/
 
 .buttonBasket{
     width: 100px;
@@ -140,6 +141,7 @@ cursor: pointer;
 
 .buttonBasket:hover{
       cursor: pointer;
+    box-shadow: 0px 0px 10px 0px red;
   }
 
 .buttonBasket h5{
@@ -160,5 +162,9 @@ cursor: pointer;
 }
 
 .activeSize{
-    box-shadow: 1px 5px 3px 0px rgba(0,0,0,0.75);
+    color:red;
+
+}
+@media screen and (max-width:414px){
+
 }

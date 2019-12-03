@@ -3,14 +3,16 @@ import "./good.css";
 import {NavLink} from 'react-router-dom';
 class Good extends Component {
     render() {
-        const{pictures,price, dataId,clickGoods,gender}=this.props;
+        const{pictures,price,name, dataId}=this.props;
 
         return (
-            <NavLink to={`/${gender}/${dataId}`}>
-            <div data-id={dataId} onClick={clickGoods} className={"good"}>
+            <NavLink to={`/b=${dataId}`}>
+            <div data-id={dataId}  className={"good"}>
                 <img data-id={dataId} src={pictures} alt=""/>
 <div data-id={dataId} className={"shelf"}>
-    <p data-id={dataId} >{price}</p>
+    <p data-id={dataId} >{name}</p>
+    <p data-id={dataId} >{price} UAH</p>
+
 </div>
 
 

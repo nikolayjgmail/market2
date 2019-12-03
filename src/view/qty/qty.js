@@ -7,6 +7,7 @@ class Qty extends Component {
     };
     render() {
         const{count}=this.state;
+        const{dataId,onclick}=this.props;
        const up=()=>{
            this.setState({count: ++this.state.count})
        }
@@ -15,10 +16,11 @@ class Qty extends Component {
        }
         return (
 
-            <div className={"qty"}>
-                <h1 onClick={down} >-</h1>
-                <h3 contentEditable={"true"} className={"qtyNumber"}>{count}</h3>
-                <h1 onClick={up}>+</h1>
+            <div onClick={onclick} className={"qty"}>
+                <h1 dataId={dataId} onClick={down} >-</h1>
+                <input dataId={dataId} className={"qtyNumber"} type="text" value={count} />
+                {/*<h3 dataId={dataId} contentEditable={"true"} className={"qtyNumber"}>{count}</h3>*/}
+                <h1 dataId={dataId} onClick={up}>+</h1>
             </div>
         );
     }

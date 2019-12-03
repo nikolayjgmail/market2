@@ -8,42 +8,39 @@ import {NavLink, Link} from 'react-router-dom';
 class Header extends Component {
     render() {
 
-        const {clickGender, data,clickBasket} = this.props;
+        const {clickGender, data, search} = this.props;
 
         return (
 
             <div className={"header"}>
-                <Link to={'/'}><img src="http://localhost/image/logo.png" alt=""/></Link>
+                <Link className={"logo"} to={'/'}><img  src="http://localhost/image/logo.png" alt=""/></Link>
 
 
                 <nav className={"menu"}>
                     <ul>
 
 
-                        <NavLink to={"/men/"}>
-                            <li>< p className={"li"} onClick={clickGender}>MEN</p></li>
-                        </NavLink>
-                        <NavLink to={"/women"}>
-                            <li><p className={"li"} onClick={clickGender}>WOMEN</p></li>
-                        </NavLink>
-                        <NavLink to={"/kids"}>
-                            <li><p className={"li"} onClick={clickGender}>KIDS</p></li>
-                        </NavLink>
+
+                            <li> <NavLink className={"el"} to={"/men"}>MEN</NavLink> </li>
+
+                        <div className={"separator"}></div>
+
+                            <li>  <NavLink className={"el"} to={"/women"}>  <p className={"li"} onClick={clickGender}>WOMEN</p>  </NavLink>  </li>
+
+                        <div className={"separator"}></div>
+
+                            <li> <NavLink className={"el"} to={"/kids"}>  <p className={"li"} onClick={clickGender}>KIDS</p>  </NavLink>  </li>
+
 
                     </ul>
                 </nav>
 
                 <div className={"search"}>
-                    <Search/>
+                    <Search search={search}/>
                 </div>
                 <div className={"basket"}>
-                    <Basket clickBasket={clickBasket} data={data}/>
+                    <Basket  data={data}/>
                 </div>
-                <div className={"user"}>
-                    <User/>
-                </div>
-
-
             </div>
 
         );

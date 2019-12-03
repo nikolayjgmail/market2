@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './goodsinfo.css'
-import {NavLink} from 'react-router-dom';
+import {NavLink,Link} from 'react-router-dom';
 import Qty from "../qty/qty";
 import Stars from "../stars/stars";
 
@@ -25,6 +25,10 @@ class GoodsInfo extends Component {
             .then((res) => this.setState({data: res}));
     }
 
+    setData=(data)=>{
+        localStorage.setItem("dataBasket", JSON.stringify(data))
+    }
+
     setActiveColor = () => {
         this.state.order.color = this.state.data[0].colors.split(",")[0];
         let elColor = document.querySelector(".goodsInfoColor");
@@ -45,9 +49,9 @@ class GoodsInfo extends Component {
     }
 
     render() {
-
         const {data, order} = this.state;
-        const {addBasket,} = this.props;
+        const {addBasket} = this.props;
+
 
         const remActiveColor = () => {
             let all = document.querySelectorAll('.goodsInfoColor');
@@ -81,9 +85,10 @@ class GoodsInfo extends Component {
 
 
         const add = () => {
-            let qty = document.querySelector(".qtyNumber").textContent;
-            this.state.order.qty = Number(qty);
+            // let qty = document.querySelector(".qtyNumber").value;
+            // this.state.order.qty = Number(qty);
             this.state.order.good = data[0];
+            // this.setData(order)
             addBasket(order)
 
         }
@@ -98,7 +103,8 @@ class GoodsInfo extends Component {
 
                     data[0] && <div className={'goodsInfoWrap'}>
                         <div className={"goodsInfoMain"}>
-                            <NavLink to={`/${this.props.match.params.gender}`}>
+                            <NavLink to={`/${data[0].gender}`}>
+                                {console.log(data[0].gender)}
                                 <div className={"close"}><img src='http://localhost/image/cross.png' alt=""/></div>
                             </NavLink>
                             <div className={"imgWrap"}>
@@ -122,7 +128,7 @@ class GoodsInfo extends Component {
                                     <p>{data[0].about}</p>
                                 </div>
 
-                                <div className={"footerWrap"}>
+                                <div className={"footerWrapGoodsInfo"}>
                                     <div className={"goodsInfoColors"}>
                                         <h5>COLOR:</h5>
 
@@ -150,20 +156,20 @@ class GoodsInfo extends Component {
 
                                     </div>
 
-                                    <div className={"separator"}></div>
+                                    {/*<div className={"separator"}></div>*/}
 
-                                    <div className={"qty"}>
-                                        <h5>QTY:</h5>
-                                        <Qty cnt={1}/>
-                                    </div>
+                                    {/*<div className={"qty"}>*/}
+                                    {/*    <h5>QTY:</h5>*/}
+                                    {/*    <Qty cnt={1}/>*/}
+                                    {/*</div>*/}
                                 </div>
 
                                 <div className={"buttonWrap"}>
-                                    <NavLink to={`/${this.props.match.params.gender}`}>
+                                    <Link to={`/${data[0].gender}`}>
                                         <div onClick={add} className={"buttonBasket"}>
                                             <h5>ADD TO BASKET</h5>
                                         </div>
-                                    </NavLink>
+                                    </Link>
                                 </div>
 
 

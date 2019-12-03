@@ -1,16 +1,30 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom"
 class Basket extends Component {
+    //  count=()=>{
+    //     let cnt=0;
+    //     this.props.data.map((elem)=>{
+    //         cnt = elem.qty+cnt;
+    //     })
+    //     return cnt
+    //
+    // }
+
     render() {
-        const{data,clickBasket}=this.props
+        const{data}=this.props;
 
         return (
-            <div onClick={clickBasket} className={"basketWrap"}>
-                <Link to={"/basket"}>
+            <div>
+            <Link to={"/basket"}>
+            <div  className={"basketWrap"}>
+
+                    {
+                        data!=0 && <div className={"h3Wrap"}><h4>{data}</h4></div>
+                    }
                 <img src="http://localhost/image/basket.png" alt=""/>
-                {
-               data!=0 && <h3>{data}</h3>
-                }
+
+
+            </div>
                 </Link>
             </div>
         );

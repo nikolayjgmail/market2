@@ -30,12 +30,25 @@ button{
 }
 .basketGoods{
     width: 70%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-
-
+    align-content: center;
+    justify-content: center;
 
 }
+
+.onlyGoods{
+    width: 100%;
+    height: 60vh;
+    /*background: darkseagreen;*/
+    overflow: auto;
+
+   /*display: flex;*/
+   /* flex-direction: column;*/
+
+}
+
 
 .basketGood{
     width: 100%;
@@ -58,4 +71,27 @@ button{
 
 .deleteBasketGood img{
     width: 100%;
+}
+
+.customerData{
+    width: 100%;
+    height: 30vh;
+    box-shadow: 0px 20px 40px -20px #333;
+    display: flex;
+    justify-content: space-around;
+}
+
+.nameBasket, .phoneBasket{
+
+    margin: 20px;
+   border:solid 1px black;
+    border-radius: 3px;
+}
+
+.nameBasketWrap, .phoneBasketWrap, .totalWrap, .buttonBasketWrap{
+    display: flex;
+    align-items: center;
+}
+.buttonBasket{
+    margin: 0;
 }

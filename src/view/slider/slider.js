@@ -2,89 +2,78 @@ import React, {Component} from 'react';
 import Nouislider from "nouislider-react";
 import "nouislider/distribute/nouislider.css";
 import "./slider.css"
+
 class Slider extends Component {
-state={
-    arr:[],
-    minRender:0,
-    maxRender:0,
+    state = {
+       index:0,
 
 
-};
+        slidesArr: ["http://localhost/image/slider/slid (1).jpg", "http://localhost/image/slider/slid (2).jpg", "http://localhost/image/slider/slid (3).jpg", "http://localhost/image/slider/slid (4).jpg",]
+    }
+
+componentDidMount() {
+    setInterval(()=> this.next(), 3000)
+    }
 
 
-//     static getDerivedStateFromProps(nextProps, prevState){
-//     if(nextProps.Min!==prevState.minT){
-//         return{minT: nextProps.Min}
-//     }
-//     else return null;
-// };
+    next=()=>{
+        if(this.state.index<this.state.slidesArr.length-1){
+            this.setState({index:this.state.index+1})
+        }
+        else{
+            this.setState({index:0})
+        }
+    };
 
-udate(){
-    this.state.arr=[];
-    this.props.dataRender.map((el) => {
+    prev=()=>{
+        if(this.state.index===0){
+            this.setState({index:this.state.slidesArr.length-1})
 
-        let test = el.size.split(",");
-        this.state.arr.push(...test);
-    });
+        }
+        else{
+            this.setState({index:this.state.index-1})
+        }
+    };
 
-    let min = Math.min(...this.state.arr);
-    let max = Math.max(...this.state.arr);
-    // this.setState({minRender: min});
-    // this.setState({maxRender: max});
-    console.log(min,max)
 
-}
+
 
 
     render() {
-const{minRender, maxRender,}=this.state;
-const{dataRender}=this.props;
+
+        const {slidesArr, index} = this.state;
 
 
 
-// let min = minT;
-// let max= maxT;
-
-
-
-
-
-
-
-        const get=(e)=>{
-
-            let low = document.querySelector('.noUi-handle-lower').getAttribute("aria-valuenow");
-            let hi = document.querySelector('.noUi-handle-upper').getAttribute("aria-valuenow");
-
-           let min = Math.round(low);
-           let max = Math.round(hi);
-
-            console.log(min,max)
-            this.setState({minRender: min})
-            this.setState({maxRender: max})
-        };
-
-
-// console.log(  document.querySelector('.noUi-tooltip') &&  document.querySelector('.noUi-tooltip').textContent)
-
-
-
-
+        {;}
 
 
         return (
 
-            <div className={"wrap"} >
+            <div className={"wrapSlider"}>
+<div className={"btnSliderWrap"}>
+    <img className={"prev"} onClick={this.prev} src="http://localhost/image/slider/prev.png" alt=""/>
+    <img className={"next"} onClick={this.next} src="http://localhost/image/slider/next.png" alt=""/>
+</div>
+
+                {
+
+                    <div className={"slid"}>
+                        <img   src={slidesArr[index]} alt=""/>
+                    </div>
+                }
 
 
-                <p>SIZE:</p>
-                <p>{minRender}</p>
-                {/*<p>{Math.round(document.querySelector('.noUi-tooltip') &&  document.querySelectorAll('.noUi-tooltip')[0].textContent)}</p>*/}
-            <div onClick={get} className={"slider"}>
-                <Nouislider  range={{ min: 0 , max: 1}} start={[0, 1] } step={1} tooltips/>
-            </div>
-                <p>{maxRender}</p>
-                {/*<p>{Math.round(document.querySelector('.noUi-tooltip') &&  document.querySelectorAll('.noUi-tooltip')[1].textContent)}</p>*/}
+                {/*<div className={"slides"} style={{marginLeft:`-${index*100}%`}}>*/}
+                    {/*{*/}
+                    {/*    slidesArr.map((el, key) => {*/}
+                    {/*        return <div className={"slid"} key={key}>*/}
+                    {/*            <img   src={el} alt=""/>*/}
+                    {/*        </div>*/}
+                    {/*    })*/}
+                    {/*}*/}
+                {/*</div>*/}
+
             </div>
 
         );
@@ -92,3 +81,4 @@ const{dataRender}=this.props;
 }
 
 export default Slider;
+

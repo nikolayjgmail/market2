@@ -8,3 +8,15 @@
 .qty h1{
     cursor: pointer;
 }
+
+.qtyNumber{
+    text-align: center;
+
+    border:none;
+    margin-left: 15px;
+    width: 30px;
+}
+
+.qtyNumber::placeholder{
+    color:black;
+}

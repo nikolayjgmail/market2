@@ -23,7 +23,7 @@ class Colors extends Component {
                 <p>COLOR:</p>
                 {
 
-                    filteredArrColor.map((el, key) => <Color key={key} color={el.color} dataId={el.color}
+                    filteredArrColor.map((el, key) => <Color categories ={el.categories} gender={el.gender} key={key} color={el.color} dataId={el.color}
                                                              clickColor={clickColor}/>)
 
                 }

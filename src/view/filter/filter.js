@@ -9,29 +9,23 @@ import Colors from "./colors";
 
 class Filter extends Component {
     state = {
-
-        arr: [],
+        acpType:this.props.dataRender[0],
 
     };
 
+    gettype=(val)=>{
+        this.setState({acpType:val})
+    };
+
+//     if(this.props.dataRender[0]){
+//     let  resItem=  dataRender[0].categories
+//     this.setState({acpType:resItem})
+// }
+
 
     render() {
-        const {data, dataRender, dataRenderSizes, clickCategories, clickColor,clickSizes, dataRenderColor} = this.props;
-// const{min,max}=this.state
+        const { acpType,resIndex, dataProps, data, dataRender, dataRenderSizes, clickCategories, clickColor,clickSizes, dataRenderColor} = this.props;
 
-
-        // let filteredArrCat = data.reduce((acc, elem) => {
-        //         if (acc.map[elem.categories]) // если данный город уже был
-        //             return acc; // ничего не делаем, возвращаем уже собранное
-        //
-        //         acc.map[elem.categories] = true; // помечаем город, как обработанный
-        //         acc.elems.push(elem); // добавляем объект в массив городов
-        //         return acc; // возвращаем собранное
-        //     },
-        //     {
-        //         map: {}, // здесь будут отмечаться обработанные города
-        //         elems: [] // здесь конечный массив уникальных городов
-        //     }).elems; // получаем конечный массив
 
 
 
@@ -47,13 +41,13 @@ class Filter extends Component {
                 <div className={"separator"}></div>
 
 
-                    <Sizes dataRender={dataRender} clickSizes={clickSizes} dataRenderSizes={dataRenderSizes}/>
+                    <Sizes active={acpType} dataRender={dataRender}  dataRenderSizes={dataRenderSizes}/>
 
 
                 <div className={"separator"}></div>
 
 
-                    <Colors dataRenderColor={dataRenderColor} clickColor={clickColor}  />
+                    <Colors  dataRenderColor={dataRenderColor} clickColor={clickColor}  />
 
 
 

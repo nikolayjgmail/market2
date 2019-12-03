@@ -1,83 +1,74 @@
 import React, {Component} from 'react';
 import Good from "../good/good";
+import {BrowserRouter as Router, Switch, Route, NavLink} from 'react-router-dom';
+import "./getGender.css"
+import Pagination from "../pagination/pagination";
+import Content from "../content/content";
+import Filter from "../filter/filter";
+import FirstScreen from "../firstScreen/firstScreen";
+import BasketC from "../basketComonent/basketC";
 
 class GetGender extends Component {
     state = {
+
+
+        dataRender: [],
+        dataSizeRender:[],
+        dataColorRender:[],
         data: [],
-        prps:'',
     };
 
 
 
-componentDidMount() {
-    this.setState({prps: this.props.match.params.gender})
-    fetch(`http://localhost/components/getTest.php?column=gender&data=${this.state.prps}`, {
-        method: 'GET',
-    })
-        .then((res) => res.json())
-        .then((res) => this.setState({data: res}));
 
-}
+    get = () => {
+        fetch(`http://localhost/components/getSome.php?data1=${this.props.match.params.gender}&data2=${this.props.match.params.val2}&data3=${this.props.match.params.val3}&data4=${this.props.match.params.val4}`, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then((res) => this.setState({ dataRender:res, dataSizeRender:res, dataColorRender:res}));
+    };
 
-
-
- shouldComponentUpdate(nextProps, nextState, nextContext) {
-
-     this.setState({prps:nextProps.match.params.gender})
-
-       return  this.state.prps!==nextProps.match.params.gender
-
+    getGender = () => {
+        fetch(`http://localhost/components/getSome.php?data1=${this.props.match.params.gender}&data2=undefined&data3=undefined&data4=undefined`, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+            .then((res) => this.setState({data: res}));
+    };
 
 
+    componentDidMount() {
+        this.get()
+        this.getGender()
 
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            this.get();
+            this.getGender();
 
-
- }
-
-
-
-         //         this.addBasket().then((res)=> {
-         //                 this.setState({
-         //                     id:nextProps,
-         //                     basket:res
-         //                 })
-         //             }
- // }
-
-
-
-
+        }
+    }
 
 
 
     render() {
-        console.log("props:", this.props.match.params.gender);
-        console.log("state:", this.state.prps);
 
-
-        const {data, prps} = this.state;
-
-
-
-
-
-       // console.log(this.props.data)
+        const{data,dataRender,dataColorRender, dataSizeRender}=this.state
+        const{delDataSearch}=this.props;
 
         return (
-            <div className={"goods"}>
-                {
-                    data.map((el, key)=> {
-                        return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} />
-                    })
-                    // this.props.data.map((el, key)=> {
-                    //     return <Good key={key} pictures={el.pictures} price={el.price} dataId={el.id} gender={el.gender} />
-                    // })
+            <div className={"getGender"}>
+
+                <Filter resIndex={0} data={data} dataRender={dataRender} dataRenderColor={dataColorRender}
+                        dataRenderSizes={dataSizeRender}/>
 
 
-                }
+                <Content data={dataRender}/>
 
 
-
+                <Pagination/>
 
 
             </div>
